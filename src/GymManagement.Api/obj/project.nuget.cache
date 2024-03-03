@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hyHW8t+xplvuoLvu3Im+4xInR0gDZSY2qZ84hnMJIc5pZ4xIOLBV9SS/oxozclJc8DO/VoBMTje83l1QeDO+NQ==",
+  "dgSpecHash": "l7fpWk6tXhaVlOEPBe0Ow5li2vSNQkSqY7u9yyMiCJR2g9/BnvqdkMGUYX8vdCrpafMUwQLgoTdPXMOwT9xBTA==",
   "success": true,
   "projectFilePath": "/Users/konradgadecki/repos/clean-architecture/src/GymManagement.Api/GymManagement.Api.csproj",
   "expectedPackageFiles": [
