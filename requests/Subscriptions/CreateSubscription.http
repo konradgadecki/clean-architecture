@@ -11,4 +11,4 @@ Content-Type: application/json
 
 ###
 
-GET {{host}}/Subscriptions
+GET {{host}}/Subscriptions/c4b86d59-7c5e-4d55-a3ad-e4021606c72a

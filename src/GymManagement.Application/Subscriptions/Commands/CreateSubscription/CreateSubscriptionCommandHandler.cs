@@ -7,21 +7,27 @@ using MediatR;
 public class CreateSubscriptionCommandHandler 
 : IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
 {
-    private ISubscriptionsRepository _subscriptionsRepository;
+    private readonly ISubscriptionsRepository _subscriptionsRepository;
+   // private readonly IUnitOfWork _unitOfWork;
 
-    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository)
+    public CreateSubscriptionCommandHandler(
+        // IUnitOfWork unitOfWork,
+        ISubscriptionsRepository subscriptionsRepository)
     {
         _subscriptionsRepository = subscriptionsRepository;
+        //_unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<Subscription>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
         var subscription = new Subscription()
         {
-            Id = Guid.NewGuid()
+            Id = Guid.NewGuid(),
+            SubscriptionType = request.SubscriptionType
         };
 
-         _subscriptionsRepository.AddSubscription(subscription);
+        await _subscriptionsRepository.AddSubscriptionAsync(subscription);
+        //await _unitOfWork.CommitChangesAsync();
 
          return subscription;
     }
