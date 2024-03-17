@@ -433,3 +433,6 @@ node_modules/
 # custom
 appsettings.personal.json
 *.local
+
+# sqlite db
+*.db

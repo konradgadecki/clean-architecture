@@ -37,3 +37,21 @@ dotnet build
 ```
 dotnet run --project src/GymManagement.Api
 ```
+
+## entity framework config
+> Install SQLite VSCode extension
+
+### install design package for migrations
+```
+dotnet add src/GymManagement.Api package Microsoft.EntityFrameworkCore.Design --version 7.0.0
+```
+  
+### create a migration
+```
+dotnet ef migrations add InitialCreate -p src/GymManagement.Infrastructure -s src/GymManagement.Api
+```
+  
+### update a database
+```
+dotnet ef database update -p src/GymManagement.Infrastructure -s src/GymManagement.Api
+```
