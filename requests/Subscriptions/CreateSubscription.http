@@ -1,5 +1,5 @@
 @host=http://localhost:5036
-@adminId=3fa85f64-5717-4562-b3fc-2c963f66afa6
+@adminId=7ec279d2-2901-4b88-87a4-55bfe5bc4806
 
 POST {{host}}/Subscriptions
 Content-Type: application/json
@@ -11,4 +11,4 @@ Content-Type: application/json
 
 ###
 
-GET {{host}}/Subscriptions/c4b86d59-7c5e-4d55-a3ad-e4021606c72a
+GET {{host}}/Subscriptions/be99674b-3a3d-4359-8415-e145f994ecbe

@@ -20,11 +20,11 @@ public class CreateSubscriptionCommandHandler
 
     public async Task<ErrorOr<Subscription>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
-        var subscription = new Subscription()
-        {
-            Id = Guid.NewGuid(),
-            SubscriptionType = request.SubscriptionType
-        };
+        var subscription = new Subscription
+        (
+            subscriptionType: request.SubscriptionType,
+            adminId: request.AdminId
+        );
 
         await _subscriptionsRepository.AddSubscriptionAsync(subscription);
         //await _unitOfWork.CommitChangesAsync();
