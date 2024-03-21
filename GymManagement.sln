@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{21A59B6C-73F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Contracts", "src\GymManagement.Contracts\GymManagement.Contracts.csproj", "{FC4B2620-42F5-4157-8A77-4C859DF5ADD0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0C66B980-B9B3-4E8A-884A-F2CC27CA6C0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Integration.Tests", "tests\GymManagement.Integration.Tests\GymManagement.Integration.Tests.csproj", "{B36FD928-7F73-402D-B892-4CDFEA9ACB23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,10 @@ Global
 		{FC4B2620-42F5-4157-8A77-4C859DF5ADD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC4B2620-42F5-4157-8A77-4C859DF5ADD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC4B2620-42F5-4157-8A77-4C859DF5ADD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B36FD928-7F73-402D-B892-4CDFEA9ACB23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B36FD928-7F73-402D-B892-4CDFEA9ACB23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B36FD928-7F73-402D-B892-4CDFEA9ACB23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B36FD928-7F73-402D-B892-4CDFEA9ACB23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FC4B2620-42F5-4157-8A77-4C859DF5ADD0} = {21A59B6C-73FD-4CB5-8AAE-3E8150E37A2B}
@@ -51,5 +59,6 @@ Global
 		{1388A896-5625-44D9-8B5A-F069C88FFAED} = {21A59B6C-73FD-4CB5-8AAE-3E8150E37A2B}
 		{E5BDB383-C73F-416C-A167-55D7A9B1D354} = {21A59B6C-73FD-4CB5-8AAE-3E8150E37A2B}
 		{8E23EB73-2F72-4A1F-B0AD-CD72C8446D22} = {21A59B6C-73FD-4CB5-8AAE-3E8150E37A2B}
+		{B36FD928-7F73-402D-B892-4CDFEA9ACB23} = {0C66B980-B9B3-4E8A-884A-F2CC27CA6C0F}
 	EndGlobalSection
 EndGlobal
