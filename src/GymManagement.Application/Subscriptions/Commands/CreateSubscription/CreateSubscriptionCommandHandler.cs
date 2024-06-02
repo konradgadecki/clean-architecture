@@ -1,34 +1,47 @@
 using ErrorOr;
 using GymManagement.Application.Common.Interfaces;
-using GymManagement.Application.Subscriptions.Commands.CreateSubscription;
 using GymManagement.Domain.Subscriptions;
 using MediatR;
 
-public class CreateSubscriptionCommandHandler 
-: IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
+namespace GymManagement.Application.Subscriptions.Commands.CreateSubscription;
+
+public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
 {
     private readonly ISubscriptionsRepository _subscriptionsRepository;
-   // private readonly IUnitOfWork _unitOfWork;
+    private readonly IAdminsRepository _adminsRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateSubscriptionCommandHandler(
-        // IUnitOfWork unitOfWork,
-        ISubscriptionsRepository subscriptionsRepository)
+    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork, IAdminsRepository adminsRepository)
     {
         _subscriptionsRepository = subscriptionsRepository;
-        //_unitOfWork = unitOfWork;
+        _unitOfWork = unitOfWork;
+        _adminsRepository = adminsRepository;
     }
 
     public async Task<ErrorOr<Subscription>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
-        var subscription = new Subscription
-        (
+        var admin = await _adminsRepository.GetByIdAsync(request.AdminId);
+
+        if (admin is null)
+        {
+            return Error.NotFound(description: "Admin not found");
+        }
+
+        var subscription = new Subscription(
             subscriptionType: request.SubscriptionType,
-            adminId: request.AdminId
-        );
+            adminId: request.AdminId);
+
+        if (admin.SubscriptionId is not null)
+        {
+            return Error.Conflict(description: "Admin already has an active subscription");
+        }
+
+        admin.SetSubscription(subscription);
 
         await _subscriptionsRepository.AddSubscriptionAsync(subscription);
-        //await _unitOfWork.CommitChangesAsync();
+        await _adminsRepository.UpdateAsync(admin);
+        await _unitOfWork.CommitChangesAsync();
 
-         return subscription;
+        return subscription;
     }
 }
