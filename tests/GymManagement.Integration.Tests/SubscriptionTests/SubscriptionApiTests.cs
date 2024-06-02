@@ -28,7 +28,7 @@ public class SubscriptionApiTests : IClassFixture<SubscriptionApiFactory>
         var sub = await _httpClient
         .PostAsJsonAsync(
             "subscriptions", 
-            new CreateSubscription(SubscriptionType.Free, Guid.NewGuid()));
+            new CreateSubscriptionRequest(SubscriptionType.Free, Guid.NewGuid()));
 
         sub.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
