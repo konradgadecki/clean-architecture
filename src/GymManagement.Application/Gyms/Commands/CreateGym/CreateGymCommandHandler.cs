@@ -3,7 +3,6 @@ using GymManagement.Application.Common.Interfaces;
 using GymManagement.Domain.Gyms;
 using MediatR;
 
-
 namespace GymManagement.Application.Gyms.Commands.CreateGym;
 
 public class CreateGymCommandHandler : IRequestHandler<CreateGymCommand, ErrorOr<Gym>>
@@ -15,14 +14,18 @@ public class CreateGymCommandHandler : IRequestHandler<CreateGymCommand, ErrorOr
     public CreateGymCommandHandler(
         ISubscriptionsRepository subscriptionsRepository,
         IGymsRepository gymsRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork
+    )
     {
         _subscriptionsRepository = subscriptionsRepository;
         _gymsRepository = gymsRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ErrorOr<Gym>> Handle(CreateGymCommand command, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Gym>> Handle(
+        CreateGymCommand command,
+        CancellationToken cancellationToken
+    )
     {
         var subscription = await _subscriptionsRepository.GetByIdAsync(command.SubscriptionId);
 
@@ -34,7 +37,8 @@ public class CreateGymCommandHandler : IRequestHandler<CreateGymCommand, ErrorOr
         var gym = new Gym(
             name: command.Name,
             maxRooms: subscription.GetMaxRooms(),
-            subscriptionId: subscription.Id);
+            subscriptionId: subscription.Id
+        );
 
         var addGymResult = subscription.AddGym(gym);
 
