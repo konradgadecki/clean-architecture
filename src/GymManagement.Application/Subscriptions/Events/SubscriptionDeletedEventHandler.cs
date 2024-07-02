@@ -23,9 +23,12 @@ public class SubscriptionDeletedEventHandler : INotificationHandler<Subscription
         CancellationToken cancellationToken
     )
     {
-        var subscription =
-            await _subscriptionsRepository.GetByIdAsync(notification.SubscriptionId)
-            ?? throw new InvalidOperationException("Subscription not found");
+        var subscription = await _subscriptionsRepository.GetByIdAsync(notification.SubscriptionId);
+        if (subscription is null)
+        {
+            // resilient error handling
+            throw new InvalidOperationException("Subscription not found");
+        }
 
         await _subscriptionsRepository.RemoveSubscriptionAsync(subscription);
         await _unitOfWork.CommitChangesAsync();

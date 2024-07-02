@@ -436,3 +436,5 @@ appsettings.personal.json
 
 # sqlite db
 *.db
+*.db-shm
+*.db-wal

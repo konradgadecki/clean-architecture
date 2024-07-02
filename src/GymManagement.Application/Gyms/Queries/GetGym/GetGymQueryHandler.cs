@@ -10,7 +10,10 @@ public class GetGymQueryHandler : IRequestHandler<GetGymQuery, ErrorOr<Gym>>
     private readonly IGymsRepository _gymsRepository;
     private readonly ISubscriptionsRepository _subscriptionsRepository;
 
-    public GetGymQueryHandler(IGymsRepository gymsRepository, ISubscriptionsRepository subscriptionsRepository)
+    public GetGymQueryHandler(
+        IGymsRepository gymsRepository,
+        ISubscriptionsRepository subscriptionsRepository
+    )
     {
         _gymsRepository = gymsRepository;
         _subscriptionsRepository = subscriptionsRepository;
@@ -18,12 +21,14 @@ public class GetGymQueryHandler : IRequestHandler<GetGymQuery, ErrorOr<Gym>>
 
     public async Task<ErrorOr<Gym>> Handle(GetGymQuery request, CancellationToken cancellationToken)
     {
-        if (await _subscriptionsRepository.ExistsAsync(request.SubscriptionId))
+        var subExists = await _subscriptionsRepository.ExistsAsync(request.SubscriptionId);
+        if (!subExists)
         {
             return Error.NotFound("Subscription not found");
         }
 
-        if (await _gymsRepository.GetByIdAsync(request.GymId) is not Gym gym)
+        var gym = await _gymsRepository.GetByIdAsync(request.GymId);
+        if (gym is null)
         {
             return Error.NotFound(description: "Gym not found");
         }
