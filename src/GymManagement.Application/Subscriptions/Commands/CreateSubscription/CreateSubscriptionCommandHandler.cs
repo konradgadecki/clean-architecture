@@ -5,20 +5,20 @@ using MediatR;
 
 namespace GymManagement.Application.Subscriptions.Commands.CreateSubscription;
 
-public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
+public class CreateSubscriptionCommandHandler(
+    ISubscriptionsRepository subscriptionsRepository,
+    IUnitOfWork unitOfWork,
+    IAdminsRepository adminsRepository
+) : IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
 {
-    private readonly ISubscriptionsRepository _subscriptionsRepository;
-    private readonly IAdminsRepository _adminsRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly ISubscriptionsRepository _subscriptionsRepository = subscriptionsRepository;
+    private readonly IAdminsRepository _adminsRepository = adminsRepository;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork, IAdminsRepository adminsRepository)
-    {
-        _subscriptionsRepository = subscriptionsRepository;
-        _unitOfWork = unitOfWork;
-        _adminsRepository = adminsRepository;
-    }
-
-    public async Task<ErrorOr<Subscription>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Subscription>> Handle(
+        CreateSubscriptionCommand request,
+        CancellationToken cancellationToken
+    )
     {
         var admin = await _adminsRepository.GetByIdAsync(request.AdminId);
 
@@ -29,7 +29,8 @@ public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscripti
 
         var subscription = new Subscription(
             subscriptionType: request.SubscriptionType,
-            adminId: request.AdminId);
+            adminId: request.AdminId
+        );
 
         if (admin.SubscriptionId is not null)
         {

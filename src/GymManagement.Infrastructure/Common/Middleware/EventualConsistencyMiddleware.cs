@@ -1,18 +1,13 @@
-﻿using GymManagement.Domain.Common;
+using GymManagement.Domain.Common;
 using GymManagement.Infrastructure.Common.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace GymManagement.Infrastructure.Common.Middleware;
 
-public class EventualConsistencyMiddleware
+public class EventualConsistencyMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate _next;
-
-    public EventualConsistencyMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
+    private readonly RequestDelegate _next = next;
 
     public async Task InvokeAsync(
         HttpContext context,

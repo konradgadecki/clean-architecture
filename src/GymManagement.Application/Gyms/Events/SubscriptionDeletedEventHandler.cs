@@ -1,19 +1,14 @@
-﻿using GymManagement.Application.Common.Interfaces;
+using GymManagement.Application.Common.Interfaces;
 using GymManagement.Domain.Admins.Events;
 using MediatR;
 
 namespace GymManagement.Application.Gyms.Events;
 
-public class SubscriptionDeletedEventHandler : INotificationHandler<SubscriptionDeletedEvent>
+public class SubscriptionDeletedEventHandler(IGymsRepository gymsRepository, IUnitOfWork unitOfWork)
+    : INotificationHandler<SubscriptionDeletedEvent>
 {
-    private readonly IGymsRepository _gymsRepository;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public SubscriptionDeletedEventHandler(IGymsRepository gymsRepository, IUnitOfWork unitOfWork)
-    {
-        _gymsRepository = gymsRepository;
-        _unitOfWork = unitOfWork;
-    }
+    private readonly IGymsRepository _gymsRepository = gymsRepository;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task Handle(
         SubscriptionDeletedEvent notification,

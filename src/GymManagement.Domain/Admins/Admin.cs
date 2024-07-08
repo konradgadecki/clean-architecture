@@ -10,8 +10,11 @@ public class Admin : Entity
     public Guid UserId { get; }
     public Guid? SubscriptionId { get; private set; } = null;
 
-    public Admin(Guid userId, Guid? subscriptionId = null, Guid? id = null)
-        : base(id ?? Guid.NewGuid())
+    public Admin(
+        Guid userId,
+        Guid? subscriptionId = null,
+        Guid? id = null)
+            : base(id ?? Guid.NewGuid())
     {
         UserId = userId;
         SubscriptionId = subscriptionId;

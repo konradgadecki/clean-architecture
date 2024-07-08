@@ -11,17 +11,14 @@ public class GymConfigurations : IEntityTypeConfiguration<Gym>
     {
         builder.HasKey(g => g.Id);
 
-        builder.Property(g => g.Id)
-            .ValueGeneratedNever();
+        builder.Property(g => g.Id).ValueGeneratedNever();
 
-        builder.Property("_maxRooms")
-            .HasColumnName("MaxRooms");
+        builder.Property("_maxRooms").HasColumnName("MaxRooms");
 
-        builder.Property<List<Guid>>("_roomIds")
-            .HasColumnName("RoomIds")
-            .HasListOfIdsConverter();
+        builder.Property<List<Guid>>("_roomIds").HasColumnName("RoomIds").HasListOfIdsConverter();
 
-        builder.Property<List<Guid>>("_trainerIds")
+        builder
+            .Property<List<Guid>>("_trainerIds")
             .HasColumnName("TrainerIds")
             .HasListOfIdsConverter();
 
