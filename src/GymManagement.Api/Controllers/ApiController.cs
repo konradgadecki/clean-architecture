@@ -1,4 +1,4 @@
-﻿using ErrorOr;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -41,9 +41,7 @@ public class ApiController : ControllerBase
 
         foreach (var error in errors)
         {
-            modelStateDictionary.AddModelError(
-                error.Code,
-                error.Description);
+            modelStateDictionary.AddModelError(error.Code, error.Description);
         }
 
         return ValidationProblem(modelStateDictionary);
